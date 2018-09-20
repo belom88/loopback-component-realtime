@@ -378,13 +378,17 @@ var FireLoop = /** @class */ (function () {
                 }
                 if (Array.isArray(input.data.params) && input.data.params.length > 0) {
                     input.data.params.push(next);
-                    method.apply(method, input.data.params);
+                    method.apply(ref, input.data.params);
                 }
                 else {
-                    method(next);
+                    method.apply(ref, [next]);
                 }
             }
-        ], function (err, data) { return FireLoop.publish(Object.assign({ err: err, input: input, data: data, created: true }, ctx)); });
+        ], function (err, data) {
+            var resultContext = Object.assign({ err: err, input: input, data: data, created: true }, ctx);
+            FireLoop.response(resultContext);
+            FireLoop.publish(resultContext);
+        });
     };
     /**
     * @method create
@@ -799,4 +803,4 @@ var FireLoop = /** @class */ (function () {
     return FireLoop;
 }());
 exports.FireLoop = FireLoop;
-//# sourceMappingURL=/Volumes/BACKUP/development/loopback-component-realtime/src/modules/FireLoop.js.map
+//# sourceMappingURL=/home/user/Apps/loopback-component-realtime/src/modules/FireLoop.js.map

@@ -144,10 +144,10 @@ export class FireLoop {
         FireLoop.disposeScopeReadings(ctx);
         // Remove Context 
         process.nextTick(() => {
-            if (
-              FireLoop.contexts[ctx.socket.connContextId] &&
-              FireLoop.contexts[ctx.socket.connContextId][ctx.id]
-            )
+          if (
+            FireLoop.contexts[ctx.socket.connContextId] &&
+            FireLoop.contexts[ctx.socket.connContextId][ctx.id]
+          )
             delete FireLoop.contexts[ctx.socket.connContextId][ctx.id];
         });
       }
@@ -417,13 +417,17 @@ export class FireLoop {
         }
         if (Array.isArray(input.data.params) && input.data.params.length > 0) {
           input.data.params.push(next);
-          method.apply(method, input.data.params);
+          method.apply(ref, input.data.params);
         } else {
-          method(next);
+          method.apply(ref, [ next ]);
         }
       }
-    ], (err: any, data: any) => FireLoop.publish(
-      Object.assign({ err, input, data, created: true }, ctx))
+    ],
+      (err: any, data: any) => {
+        const resultContext = Object.assign({ err, input, data, created: true }, ctx);
+        FireLoop.response(resultContext);
+        FireLoop.publish(resultContext);
+      }
     );
   }
   /**
