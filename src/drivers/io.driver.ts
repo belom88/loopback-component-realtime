@@ -145,13 +145,13 @@ export class IODriver implements DriverInterface {
          * Wait 1 second for token to be available
          * Or disconnect
          **/
-        const to = setTimeout(() => {
-          if (!socket.token) {
-            socket.emit('unauthorized');
-            socket.disconnect(1);
-          }
-          clearTimeout(to);
-        }, 3000);
+        // const to = setTimeout(() => {
+        //   if (!socket.token) {
+        //     socket.emit('unauthorized');
+        //     socket.disconnect(1);
+        //   }
+        //   clearTimeout(to);
+        // }, 3000);
       });
     }
   }

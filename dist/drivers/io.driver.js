@@ -136,13 +136,13 @@ var IODriver = /** @class */ (function () {
                  * Wait 1 second for token to be available
                  * Or disconnect
                  **/
-                var to = setTimeout(function () {
-                    if (!socket.token) {
-                        socket.emit('unauthorized');
-                        socket.disconnect(1);
-                    }
-                    clearTimeout(to);
-                }, 3000);
+                // const to = setTimeout(() => {
+                //   if (!socket.token) {
+                //     socket.emit('unauthorized');
+                //     socket.disconnect(1);
+                //   }
+                //   clearTimeout(to);
+                // }, 3000);
             });
         }
     };
@@ -249,4 +249,4 @@ var IODriver = /** @class */ (function () {
     return IODriver;
 }());
 exports.IODriver = IODriver;
-//# sourceMappingURL=/Volumes/BACKUP/development/loopback-component-realtime/src/drivers/io.driver.js.map
+//# sourceMappingURL=z:/Apps/loopback-component-realtime/src/drivers/io.driver.js.map
